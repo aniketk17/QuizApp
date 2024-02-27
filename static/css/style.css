@@ -1,0 +1,23 @@
+@media (max-width:853px) {
+  .performance{
+    margin-left: 0px !important;
+  }
+}
+
+@media(max-wi:992px){
+  .leaders{
+    margin-bottom: 10px !important;
+  }
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  border: 0 !important;
+}
+

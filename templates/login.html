@@ -1,0 +1,26 @@
+{% extends "index.html" %}
+
+{% block content %}
+<h5 class="display-4 text-center my-3">Login</h5>
+<div class="container">
+  <div class="row">
+    <div class="col">
+    </div>
+    <div class="col">
+      <form>
+        <div class="mb-3">
+          <label for="Inputusername" class="form-label">Username</label>
+          <input type="text" class="form-control" id="Inputusername" aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label">Password</label>
+          <input type="password" class="form-control" id="exampleInputPassword1">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+    <div class="col">
+    </div>
+  </div>
+</div>
+{% endblock %}

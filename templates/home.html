@@ -1,0 +1,57 @@
+{% extends "index.html" %}
+
+{% block content %}
+
+
+<div class="container my-4">
+  <h1 class="display-4 font-weight-bold text-center my-2">Welcome to Brainly</h1>
+  <p class="text-center font-italic h5">Not just make your ranking in college but also in knowledege</p>
+  <div class="d-flex justify-content-center my-3">
+    <a href="#" class="btn btn-primary mr-1">Sign Up</a>
+    <a href="all-quiz.html" class="btn btn-outline-success ml-1">Start Quiz</a>
+  </div>
+</div>
+<hr>
+<div class="container">
+  <h5 class="display-4 text-center">Leaderboard</h5>
+</div>
+
+<div class="container">
+  <div class="row pl-5">
+    <div class="col-lg-4 col-md-6 col-sm-12">
+      <div class="card position-relative leaders" style="width: 15rem;">
+        <img src="user_png.png" class="card-img-top img-fluid mt-2" alt="..." style="height: 200px;">
+        <span class="position-absolute top-0 start-100 translate-middle badge rounded-circle bg-success"
+          style="font-size: 0.75rem;">1</span>
+        <div class="card-body p-2" style="width: 15rem;">
+          <h5 class="card-title" style="font-size: 0.85rem;">Aniket Kardile</h5>
+          <a href="profile.html" class="btn btn-sm btn-primary" style="margin-bottom: -0.25rem;">View Profile</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-6 col-sm-12">
+      <div class="card position-relative" style="width: 15rem;">
+        <img src="user_png.png" class="card-img-top img-fluid mt-2" alt="..." style="height: 200px;">
+        <span class="position-absolute top-0 start-100 translate-middle badge rounded-circle bg-success"
+          style="font-size: 0.75rem;">1</span>
+        <div class="card-body p-2">
+          <h5 class="card-title" style="font-size: 0.85rem;">Aniket Kardile</h5>
+          <a href="profile.html" class="btn btn-sm btn-primary" style="margin-bottom: -0.25rem;">View Profile</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-6 col-sm-12">
+      <div class="card position-relative " style="width: 15rem;">
+        <img src="user_png.png" class="card-img-top img-fluid mt-2" alt="..." style="height: 200px;">
+        <span class="position-absolute top-0 start-100 translate-middle badge rounded-circle bg-success"
+          style="font-size: 0.75rem;">1</span>
+        <div class="card-body p-2">
+          <h5 class="card-title" style="font-size: 0.85rem;">Aniket Kardile</h5>
+          <a href="profile.html" class="btn btn-sm btn-primary" style="margin-bottom: -0.25rem;">View Profile</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
