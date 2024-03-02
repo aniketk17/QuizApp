@@ -8,23 +8,31 @@
     <div class="col">
     </div>
     <div class="col">
-      <form>
+      <form method="post">
+        {% csrf_token %}
+        {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-primary" role="alert">
+            {{message}}
+          </div>
+        {% endfor %}
+        {% endif %}
         <div class="mb-3">
           <label for="Inputusername" class="form-label visually-hidden">Username</label>
-          <input type="text" class="form-control" id="Inputusername" placeholder="username">
+          <input type="text" class="form-control" id="Inputusername" placeholder="username" name="username" required>
         </div>
         <div class="mb-3">
           <label for="exampleInputEmail1" class="form-label visually-hidden">Email address</label>
           <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-            placeholder="enter email">
+            placeholder="enter email" name="email" required>
         </div>
         <div class="mb-3">
           <label for="exampleInputPassword1" class="form-label visually-hidden">Password</label>
-          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="enter password">
+          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="enter password" name="password1" required>
         </div>
         <div class="mb-3">
           <label for="exampleInputPassword1" class="form-label visually-hidden">Confirm Password</label>
-          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="confirm password">
+          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="confirm password" name="password2" required>
         </div>
         <p>Already Register ? <a href="login.html">Login</a></p>
         <button type="submit" class="btn btn-primary">Register</button>

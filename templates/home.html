@@ -7,8 +7,13 @@
   <h1 class="display-4 font-weight-bold text-center my-2">Welcome to Brainly</h1>
   <p class="text-center font-italic h5">Not just make your ranking in college but also in knowledege</p>
   <div class="d-flex justify-content-center my-3">
-    <a href="#" class="btn btn-primary mr-1">Sign Up</a>
+    {% if user.is_authenticated %}
+    <a href="{% url 'profile_page' request.user.username %}" class="btn btn-primary mr-1">Profile</a>
     <a href="all-quiz.html" class="btn btn-outline-success ml-1">Start Quiz</a>
+{% else %}
+    <a href="{% url 'register_page' %}" class="btn btn-primary mr-1">Sign Up</a>
+    <a href="all-quiz.html" class="btn btn-outline-success ml-1">Start Quiz</a>
+{% endif %}
   </div>
 </div>
 <hr>
@@ -25,7 +30,7 @@
           style="font-size: 0.75rem;">1</span>
         <div class="card-body p-2" style="width: 15rem;">
           <h5 class="card-title" style="font-size: 0.85rem;">Aniket Kardile</h5>
-          <a href="profile.html" class="btn btn-sm btn-primary" style="margin-bottom: -0.25rem;">View Profile</a>
+          <a href="" class="btn btn-sm btn-primary" style="margin-bottom: -0.25rem;">View Profile</a>
         </div>
       </div>
     </div>

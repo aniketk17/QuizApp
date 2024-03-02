@@ -1,0 +1,56 @@
+{% extends "index.html" %}
+
+{% block content %}
+
+
+
+<h1 class="display-4 text-center my-5">Edit Profile</h1>
+
+
+<div class="container">
+  <div class="row row-cols-sm-1 row-cols-lg-3 container">
+    <div class="col-12">
+    </div>
+    <div class="col-12">
+
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3 d-flex justify-content-center">
+          <img src="{{login_profile.profile_img.url}}" alt="profile-pic" width="150" height="150" class="rounded-circle">
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputImage" class="form-label visually-hidden">Profile image</label>
+          <input type="file" class="form-control" id="exampleInputImage" name="profile_img">
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputFirstName" class="form-label visually-hidden">First Name</label>
+          <input type="text" class="form-control" id="exampleInputFirstName" placeholder="First Name" name="first_name">
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputLastName" class="form-label visually-hidden">Last Name</label>
+          <input type="text" class="form-control" id="exampleInputLastName" placeholder="Last Name" name="last_name">
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputEmail2" class="form-label visually-hidden">Email</label>
+          <input type="email" class="form-control" id="exampleInputEmail2" aria-describedby="emailHelp"
+            placeholder="Email" name="email">
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputUsername1" class="form-label visually-hidden">Username</label>
+          <input type="text" class="form-control" id="exampleInputUsername1" aria-describedby="emailHelp"
+            placeholder="Username" name="username">
+        </div>
+
+        <div class="mb-3">
+          <label for="exampleFormControlTextarea1" class="form-label visually-hidden">Bio</label>
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Your Bio" name="bio"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-success">Save Profile</button>
+      </form>
+    </div>
+    <div class="col-12">
+    </div>
+  </div>
+</div>
+{% endblock %}

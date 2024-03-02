@@ -6,8 +6,8 @@
     <div class="col-lg-4">
       <div class="card mb-4">
         <div class="card-body text-center">
-          <img src="user_png.png" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
-          <h5 class="my-3">Aniket Kardile</h5>
+          <img src="{{user_profile.profile_img.url}}" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+          <h5 class="my-3">{{user_profile.user.username}}</h5>
           <div class="d-flex justify-content-center mb-2">
             <button type="button" class="btn btn-primary">Follow</button>
             <button type="button" class="btn btn-outline-primary ml-1">Message</button>
@@ -24,7 +24,7 @@
               <p class="mb-0">Full Name</p>
             </div>
             <div class="col-sm-9">
-              <p class="text-muted mb-0">Aniket Kardile</p>
+              <p class="text-muted mb-0">{{user_profile.user.first_name|default:'Full name not Available'}} {{user_profile.user.last_name}}</p>
             </div>
           </div>
           <hr>
@@ -32,8 +32,8 @@
             <div class="col-sm-3">
               <p class="mb-0">Email</p>
             </div>
-            <div class="col-sm-9">
-              <p class="text-muted mb-0">example@example.com</p>
+            <div class="col-sm-9">  
+              <p class="text-muted mb-0">{{user_profile.user.email}}</p>
             </div>
           </div>
           <hr>
@@ -42,16 +42,17 @@
               <p class="mb-0">Bio</p>
             </div>
             <div class="col-sm-9">
-              <p class="text-muted mb-0">Coder</p>
+              <p class="text-muted mb-0">{{user_profile.bio|default:'Bio Not Available'}}</p>
             </div>
           </div>
         </div>
       </div>
-
+      {% if request.user.username == user_profile.user.username %}
       <div class="btn-group" role="group" aria-label="Basic outlined example">
-        <button type="button" class="btn btn-outline-success">Edit</button>
-        <button type="button" class="btn btn-outline-danger">Delete</button>
+        <a type="button" class="btn btn-outline-success" href="{% url 'editprofile_page' request.user.username %}">Edit</a>
+        <a type="button" class="btn btn-outline-danger" href="{% url 'confirm_page' %}">Delete</a>
       </div>
+      {% endif %}
     </div>
   </div>
 

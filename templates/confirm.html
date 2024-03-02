@@ -1,0 +1,14 @@
+{% extends "index.html" %}
+
+{% block content %}
+<h1 class="display-4 text-center my-5">Confirmation Page</h1>
+
+<div class="container">
+  <form method="post" >
+      {% csrf_token %}
+      <p class="fs-4"><b>{{request.user.username}}</b>, Are you sure you want to delete your profile.</p>
+      <a href="{% url 'homepage' %}" class="btn btn-success" type="button">Back to Home</a>
+      <input class="btn btn-danger" type="submit" value="Confirm">
+  </form>
+</div>
+{% endblock %}
