@@ -5,64 +5,39 @@
 
  <div class="d-flex container">
   <a href="" class = "btn btn-light mr-2">All Qiuzzes</a>
-  <a href="" class = "btn btn-light mr-2">DSA</a>
-  <a href="" class = "btn btn-light mr-2">OOP</a>
+  {% for category in categories %}
+  <a href="{% url 'searchQuiz' category.name %}" class = "btn btn-light mr-2">{{category.name}}</a>
+  {% endfor %}
 </div>
 
- <form class="container d-flex text-center mt-2 col-md-6 col-lg-8">
-  <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-  <a href="#" class="btn btn-outline-success">Search</a>
+ <form class="container d-flex text-center mt-2 col-md-6 col-lg-8" method="get" action="{% url 'searchQuiz' ' ' %}">
+  <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="q">
+  <input class="btn btn-outline-success" type="submit">
 </form>
 
 <div class="container">
   <div class="row">
+    {% if quizzes|length > 0 %}
+    {% for quiz in quizzes %}
     <div class="col-lg-4 col-sm-12 col-md-6 mt-3">
       <div class="card" style="width: 18rem;">
         <div class="card-body">
-          <h5 class="card-title">Newton's Law</h5>
+          <h5 class="card-title">{{quiz.title}}</h5>
           <h6 class="card-subtitle mb-2 text-muted">Total no of questions - 10</h6>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <p class="card-text">{{quiz.description|truncatewords:7}}</p>
           <a href="quiz.html" class="btn btn-outline-success">Start Quiz</a>
-          <span class="ml-5">25 feb,2023</span>
+        </div>
+        <div class="mb-2 ml-3">
+          {{quiz.created_at|timesince}}
         </div>
       </div>
     </div>
-
-    <div class="col-lg-4 col-sm-12 col-md-6 mt-3">
-      <div class="card" style="width: 18rem;">
-        <div class="card-body">
-          <h5 class="card-title">Newton's Law</h5>
-          <h6 class="card-subtitle mb-2 text-muted">Total no of questions - 10</h6>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="#" class="btn btn-outline-success">Start Quiz</a>
-          <span class="ml-5">25 feb,2023</span>
-        </div>
-      </div>
+    {% endfor %}
+    {% else %}
+    <div class="col-sm-12 col-lg-12 col-md-12 my-2">
+      <p class="text-center text-danger fs-5">No Quiz Available For This Category</p>
     </div>
-
-    <div class="col-lg-4 col-sm-12 col-md-6 mt-3">
-      <div class="card" style="width: 18rem;">
-        <div class="card-body">
-          <h5 class="card-title">Newton's Law</h5>
-          <h6 class="card-subtitle mb-2 text-muted">Total no of questions - 10</h6>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="#" class="btn btn-outline-success">Start Quiz</a>
-          <span class="ml-5">25 feb,2023</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-lg-4 col-sm-12 col-md-6 mt-3">
-      <div class="card" style="width: 18rem;">
-        <div class="card-body">
-          <h5 class="card-title">Newton's Law</h5>
-          <h6 class="card-subtitle mb-2 text-muted">Total no of questions - 10</h6>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="#" class="btn btn-outline-success">Start Quiz</a>
-          <span class="ml-5">25 feb,2023</span>
-        </div>
-      </div>
-    </div>
+    {% endif %}
   </div>
 </div>
 {% endblock %}

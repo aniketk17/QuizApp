@@ -9,10 +9,10 @@
   <div class="d-flex justify-content-center my-3">
     {% if user.is_authenticated %}
     <a href="{% url 'profile_page' request.user.username %}" class="btn btn-primary mr-1">Profile</a>
-    <a href="all-quiz.html" class="btn btn-outline-success ml-1">Start Quiz</a>
+    <a href="{% url 'allquizpage' %}" class="btn btn-outline-success ml-1">Start Quiz</a>
 {% else %}
     <a href="{% url 'register_page' %}" class="btn btn-primary mr-1">Sign Up</a>
-    <a href="all-quiz.html" class="btn btn-outline-success ml-1">Start Quiz</a>
+    <a href="{% url 'allquizpage' %}" class="btn btn-outline-success ml-1">Start Quiz</a>
 {% endif %}
   </div>
 </div>
