@@ -49,13 +49,14 @@ def register_page(request):
 
 @login_required(login_url='login_page')
 def profile_page(request,username):
-  user_object = User.objects.get(username=username)
-  user_profile = Profile.objects.get(user = user_object)
+  if username:
+    user_object = User.objects.filter(username=username).first()
+    user_profile = Profile.objects.filter(user = user_object).first()
 
-  login_user = User.objects.get(username=request.user)
-  login_profile = Profile.objects.get(user = login_user)
-  context = {'user_profile':user_profile,'login_profile':login_profile}
-  return render(request,'profile.html',context)
+    login_user = User.objects.filter(username=request.user).first()
+    login_profile = Profile.objects.filter(user = login_user).first()
+    context = {'user_profile':user_profile,'login_profile':login_profile}
+    return render(request,'profile.html',context)
 
 
 def login_page(request):

@@ -1,0 +1,27 @@
+{% extends "index.html" %}
+{% block title %}Search User{% endblock %}
+{% block content %}
+
+<div class="container text-center">
+  <h1 class="display-4 text-center my-5">Users based on {{query}}</h1>
+
+  <div class="row row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 mx-3">
+    {% if leaderboard_users|length == 0 %}
+    <div class="container">
+      <h4 class="text-center text-danger">No User Available on Leaderboard!!</h4>
+    </div>
+    {% else %}
+    {% for rank in leaderboard_users %}
+      <div class="col-lg-4 position-relative mb-4">
+        <img src="{{rank.profile.profile_img.url}}" class="card-img-top img-fluid mt-2" alt="..." style="height: 200px; width: 200px;">
+          <span class="position-absolute top-0 start-90 translate-middle badge rounded-pill bg-success">{{forloop.counter}}</span>
+          <h2 class="fw-normal">{{rank.username}}</h2>
+          <p><a class="btn btn-outline-success" href="{% url 'profile_page' rank.username %}">View Profile »</a></p>
+      </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
+
+

@@ -1,92 +1,122 @@
 {% extends "index.html" %}
-
+{% block title %}Quiz Page{% endblock %}
 {% block content %}
-<h5 class="display-4 text-center">Newton's Law - 10</h5>
-<p class="fs-4 text-center">These are questions about newton's law of motion</p>
+<h5 class="display-4 text-center">{{ quiz.title }}</h5>
+<p class="fs-4 text-center">{{ quiz.description }}</p>
 <div class="container">
   <div class="d-flex justify-content-around">
-    <span class="fs-5">Feb 25, 2024 10:00 am</span>
-    <span class="fs-5">10:00</span>
+    <span class="fs-5">{{ quiz.created_at }}</span>
+    <span class="fs-5" id="timer">10:00</span>
   </div>
+  {% for message in messages %}
+  <div id ="message-div">
+    <h4 class="text-center text-success">{{message}}</h4>
+  </div>
+  {% endfor %}
 
+  {% for question in quiz.question.all %}
   <div class="questions my-4">
     <div class="col">
       <div class="card my-4">
         <div class="card-header font-weight-bold">
-          Question 1
+          Question {{ forloop.counter }}
         </div>
         <div class="card-body">
-          <h5 class="card-title">Which is newton's first law of motion ?</h5>
+          <h5 class="card-title">{{ question.text }}</h5>
           <ul class="list-group list-group-flush">
+            {% for option in question.choice.all %}
             <div class="form-check py-2 mx-3 list-group-item">
-              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-              <label class="form-check-label" for="flexRadioDefault1">
-                Option 1
+              <input class="form-check-input" type="radio" id="{{ option.id }}" value="{{option.text}}" name="{{option.question.id}}">
+              <label class="form-check-label" for="{{ option.id }}">
+                {{ option.text }}
               </label>
+              {% if option.isCorrect %}
+              <span class="visually-hidden correct-answer">{{option.text}}</span>
+              {% endif %}
             </div>
-            <div class="form-check py-2 mx-3 list-group-item">
-              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-              <label class="form-check-label" for="flexRadioDefault2">
-                Default radio
-              </label>
-            </div>
-            <div class="form-check py-2 mx-3 list-group-item">
-              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
-              <label class="form-check-label" for="flexRadioDefault3">
-                Default radio
-              </label>
-            </div>
-            <div class="form-check py-2 mx-3 list-group-item">
-              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault4">
-              <label class="form-check-label" for="flexRadioDefault4">
-                Default radio
-              </label>
-            </div>
+            {% endfor %}
           </ul>
         </div>
       </div>
     </div>
-
-    <div class="col">
-      <div class="card my-2">
-        <div class="card-header font-weight-bold">
-          Question 1
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">Which is newton's first law of motion ?</h5>
-          <ul class="list-group list-group-flush">
-            <div class="form-check py-2 mx-3 list-group-item">
-              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-              <label class="form-check-label" for="flexRadioDefault1">
-                Option 1
-              </label>
-            </div>
-            <div class="form-check py-2 mx-3 list-group-item">
-              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-              <label class="form-check-label" for="flexRadioDefault2">
-                Default radio
-              </label>
-            </div>
-            <div class="form-check py-2 mx-3 list-group-item">
-              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
-              <label class="form-check-label" for="flexRadioDefault3">
-                Default radio
-              </label>
-            </div>
-            <div class="form-check py-2 mx-3 list-group-item">
-              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault4">
-              <label class="form-check-label" for="flexRadioDefault4">
-                Default radio
-              </label>
-            </div>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <button class="btn btn-primary ml-3">Submit</button>
-
   </div>
+  {% endfor %}
+
+  <form action="" method="post" id="quiz-form">
+    {% csrf_token %}
+    <input type="number" value="0" name="score" hidden id="show-score">
+    <button class="btn btn-primary ml-3" id="submit-btn">Submit</button>
+  </form>
 </div>
 
+<script>
+  let submitBtn = document.querySelector("#submit-btn");
+  let timerSpan = document.querySelector("#timer");
+  let noOfquestions = document.querySelectorAll(".questions")
+  let userScore = document.getElementById('show-score')
+  let quizForm = document.getElementById('quiz-form')
+  let quizDuration = (noOfquestions.length) * 60;
+
+  function updateTimer() {
+    let minutes = Math.floor(quizDuration / 60);
+    let seconds = quizDuration % 60
+
+    timerSpan.innerText = `${minutes}:${seconds}`;
+    if (quizDuration <= 0) {
+      clearTimeout(quizTimerId);
+      submitQuiz();
+    } 
+    else if(document.getElementById("message-div")){
+      clearInterval(quizTimerId)
+      highlightCorrectAns()
+      submitBtn.disabled = true;
+    }
+    else {
+      quizDuration--;
+    }
+  }
+
+  function submitQuiz() {
+    calculateScore();
+    quizForm.submit();
+  }
+
+  function calculateScore() {
+    let score = 0;
+    noOfquestions.forEach(question => {
+      let selectedInput = question.querySelector('input:checked');
+      let correctAnsElement = question.querySelector(".correct-answer");
+
+      if (selectedInput && correctAnsElement) {
+        let selectedValue = selectedInput.value;
+        let correctAns = correctAnsElement.innerText.trim();
+
+        console.log("Question:", question.textContent.trim());
+        console.log("Selected input:", selectedValue);
+        console.log("Correct answer:", correctAns);
+
+        if (selectedValue === correctAns) {
+          console.log("Correct answer selected");
+          score += 1;
+        }
+      }
+    });
+    userScore.value = score;
+  }
+
+  function highlightCorrectAns() {
+    noOfquestions.forEach(question => {
+      let correctAnsElement = question.querySelector(".correct-answer");
+      if (correctAnsElement) {
+        correctAnsElement.previousElementSibling.classList.add("highlight-correct-answer")
+        question.querySelectorAll("input").forEach(input => {
+          input.disabled = true;
+        });
+      }
+    })
+  }
+
+  submitBtn.addEventListener("click", submitQuiz);
+  quizTimerId = setInterval(updateTimer, 1000);
+</script>
 {% endblock %}

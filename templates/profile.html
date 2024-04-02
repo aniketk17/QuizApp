@@ -1,6 +1,16 @@
 {% extends "index.html" %}
-
+{% block title %}Profile Page{% endblock %}
 {% block content %}
+
+{% if messages %}
+{% for message in messages %}
+<div class="container">
+  <div class="alert alert-success" role="alert">
+    {{message}}
+  </div>
+</div>
+{% endfor %}
+{% endif %}
 <div class="user-profile container my-5">
   <div class="row">
     <div class="col-lg-4">

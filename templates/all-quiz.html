@@ -1,5 +1,5 @@
 {% extends "index.html" %}
-
+{% block title %}All-quiz{% endblock %}
 {% block content %}
 <h1 class="display-4 text-center my-2">All Qiuzzes</h1>
 
@@ -10,7 +10,7 @@
   {% endfor %}
 </div>
 
- <form class="container d-flex text-center mt-2 col-md-6 col-lg-8" method="get" action="{% url 'searchQuiz' ' ' %}">
+ <form class="container d-flex text-center mt-2 col-md-6 col-lg-8" method="get" action="{% url 'searchBySearchBar' %}">
   <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="q">
   <input class="btn btn-outline-success" type="submit">
 </form>
@@ -25,7 +25,7 @@
           <h5 class="card-title">{{quiz.title}}</h5>
           <h6 class="card-subtitle mb-2 text-muted">Total no of questions - 10</h6>
           <p class="card-text">{{quiz.description|truncatewords:7}}</p>
-          <a href="quiz.html" class="btn btn-outline-success">Start Quiz</a>
+          <a href="{% url 'quizPage' quiz.id %}" class="btn btn-outline-success">Start Quiz</a>
         </div>
         <div class="mb-2 ml-3">
           {{quiz.created_at|timesince}}
