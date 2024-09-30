@@ -42,6 +42,3 @@ ThinkGuru is an interactive learning platform designed to enhance knowledge acqu
 7. Start the Development Server:
    ```bash
    python manage.py runserver
-
-
-   
